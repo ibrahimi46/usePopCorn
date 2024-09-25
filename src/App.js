@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
-function App() {
+import "./App.css";
+
+import Navbar from "./components/Navbar";
+import LowerContainer from "./components/LowerContainer";
+import { useMovies } from "./Hooks/useMovies";
+import { useMovieSummary } from "./Hooks/useMovieSummary";
+
+export default function App() {
+  const [query, setQuery] = useState("spiderman");
+  const [data] = useMovies(query);
+  const { movieSummary, selectedID, setSelectedID } = useMovieSummary();
+
+  function handleEnter(value) {
+    setQuery(value);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper-dark">
+      <Navbar setQuery={setQuery} handleEnter={handleEnter} />
+      <LowerContainer
+        data={data}
+        selectedID={selectedID}
+        setSelectedID={setSelectedID}
+        movieSummary={movieSummary}
+      />
+      <span className="results">{`Found ${data.length} results...`}</span>
     </div>
   );
 }
-
-export default App;
