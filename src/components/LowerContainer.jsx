@@ -9,7 +9,7 @@ import WatchedDescription from './WatchedDescription';
 export default function LowerContainer({data, selectedID, setSelectedID, movieSummary}) {
     const [watchedList, setWatchedList] = useState(function() {
       const storedValue = localStorage.getItem("watchedList");
-      return JSON.parse(storedValue);
+      return storedValue ? JSON.parse(storedValue) : [];
     });
 
 

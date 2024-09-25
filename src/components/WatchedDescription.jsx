@@ -2,22 +2,30 @@ import React from 'react'
 import WatchedMovieContainer from './WatchedMovieContainer'
 
 export default function WatchedDescription({watchedList, setWatchedList}) {
-  let sumOfImdbRating = 0;
-  let sumOfMyRating = 0;
-  let sumOfRuntime = 0;
 
 
-  watchedList.forEach((item) => {
-    const imdbRating = Number(item.imdbRating);
-    if (!isNaN(imdbRating)) {
-      sumOfImdbRating += Number(item.imdbRating)
-    }
-    sumOfMyRating += Number(item.myRating)
-    let runtime = parseFloat(item.Runtime.match(/\d+/));
+  watchedList = watchedList || []; 
+
+let sumOfImdbRating = 0;
+let sumOfMyRating = 0;
+let sumOfRuntime = 0;
+
+watchedList.forEach((item) => {
+  const imdbRating = Number(item.imdbRating);
+  if (!isNaN(imdbRating)) {
+    sumOfImdbRating += imdbRating;
+  }
+  sumOfMyRating += Number(item.myRating);
+
+  if (item.Runtime && typeof item.Runtime === "string") {
+    const runtime = parseFloat(item.Runtime.match(/\d+/));
     if (!isNaN(runtime)) {
-      sumOfRuntime += runtime;  
+      sumOfRuntime += runtime;
     }
-  })
+  }
+});
+
+
 
 
   return (
