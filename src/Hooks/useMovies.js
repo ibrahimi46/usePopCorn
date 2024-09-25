@@ -7,7 +7,7 @@ export function useMovies(query) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://www.omdbapi.com/?s=${query}&apikey=5f35c61b`
+          `https://www.omdbapi.com/?s=${query}&apikey=5f35c61b`
         );
         const result = await response.json();
         setData(result.Search);
@@ -15,7 +15,6 @@ export function useMovies(query) {
         console.error(error);
       }
     };
-
     fetchData();
   }, [query]);
 
